@@ -33,7 +33,7 @@ The script's output looks like this:
 > 2023-04-23 01:58:43.629668234-04:00
 > Getting external IP address:
 > Got IP 158.247.7.204
-> Checking last set address
+> Updating address
 > Response nochg 158.247.7.204
 > Sleeping...
 ```
