@@ -35,11 +35,18 @@ while true; do
 	EXTERNAL_IP=$(cat $OUTPUT)
 	printf "> Got IP %s\n" "$EXTERNAL_IP"
 
-	printf "> Checking last set address\n"
+	printf "> Updating address\n"
 	curl -vvv -o $OUTPUT \
 		--interface $INTERFACE \
 		--netrc-file $NETRC_PATH \
 		"http://dynupdate.no-ip.com/nic/update?hostname=$GROUP&myip=$EXTERNAL_IP"
+
+	if [ $?  -ne 0 ]; then
+		printf "> Error updating IP address\n"
+		sleep 3
+		exit 1
+	fi
+
 	RESPONSE=$(cat $OUTPUT)
 	printf "> Response %s\n" "$RESPONSE"
 
