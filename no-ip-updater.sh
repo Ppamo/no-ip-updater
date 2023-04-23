@@ -3,7 +3,6 @@
 SETTINGS_PATH=/etc/no-ip-updater.settings
 
 OUTPUT=/tmp/no-ip-updater.data
-LOG=/var/log/no-ip-updater.log
 DATA=/var/log/no-ip-updater.prop
 DATE=$(date +%Y%m%d.%H%M%S)
 
@@ -23,18 +22,24 @@ while true; do
 
 	printf "> %s\n" "$DATE"
 	printf "> Getting external IP address:\n"
-	curl -s -o $OUTPUT \
+	curl -vvv -o $OUTPUT \
 		--interface $INTERFACE \
 		http://ip1.dynupdate.no-ip.com/
+
+	if [ $?  -ne 0 ]; then
+		printf "> Error getting external IP address\n"
+		sleep 3
+		exit 1
+	fi
 
 	EXTERNAL_IP=$(cat $OUTPUT)
 	printf "> Got IP %s\n" "$EXTERNAL_IP"
 
 	printf "> Checking last set address\n"
-	curl -s -vvv -o $OUTPUT \
+	curl -vvv -o $OUTPUT \
 		--interface $INTERFACE \
 		--netrc-file $NETRC_PATH \
-		"http://dynupdate.no-ip.com/nic/update?hostname=$GROUP&myip=$EXTERNAL_IP" 2> $LOG
+		"http://dynupdate.no-ip.com/nic/update?hostname=$GROUP&myip=$EXTERNAL_IP"
 	RESPONSE=$(cat $OUTPUT)
 	printf "> Response %s\n" "$RESPONSE"
 
