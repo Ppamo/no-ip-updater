@@ -8,7 +8,7 @@ DATA=/var/log/no-ip-updater.prop
 DATE=$(date +%Y%m%d.%H%M%S)
 
 if [ -f $SETTINGS_PATH ]; then
-	printf "> Loading %s file\n" "$SETTINGS_PATH"
+	printf "> Loading %s file\n\n" "$SETTINGS_PATH"
 	. $SETTINGS_PATH
 fi
 
