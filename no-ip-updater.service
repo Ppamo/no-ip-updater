@@ -1,0 +1,13 @@
+[Unit]
+Description=No-ip custom updater
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/opt/no-ip-updater/no-ip-updater.sh
+Restart=on-failure
+KillMode=process
+# User=root
+
+[Install]
+WantedBy=default.target

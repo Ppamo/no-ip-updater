@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-SETTINGS_PATH=./settings.sh
+SETTINGS_PATH=/etc/no-ip-updater.settings
 
 OUTPUT=/tmp/no-ip-updater.data
 LOG=/var/log/no-ip-updater.log
